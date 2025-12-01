@@ -247,4 +247,30 @@
         <addForeignKeyConstraint constraintName="medication_administration_note_approved_by_fk" baseTableName="medication_administration_note" baseColumnNames="approved_by_id" referencedTableName="provider" referencedColumnNames="provider_id"/>
     </changeSet>
 
+    <changeSet id="202512011301_add_amended_fields" author="Bahmni">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <tableExists tableName="medication_administration_note"/>
+            <not>
+                <and>
+                    <columnExists tableName="medication_administration_note" columnName="amended_time"/>
+                    <columnExists tableName="medication_administration_note" columnName="amended_by"/>
+                </and>
+            </not>
+        </preConditions>
+
+        <comment>Add amended_time and amended_by columns to medication_administration_note</comment>
+
+        <addColumn tableName="medication_administration_note">
+            <column name="amended_time" type="datetime"/>
+            <column name="amended_by" type="int"/>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                constraintName="medication_administration_note_amended_by_fk"
+                baseTableName="medication_administration_note"
+                baseColumnNames="amended_by"
+                referencedTableName="provider"
+                referencedColumnNames="provider_id"/>
+    </changeSet>
+
 </databaseChangeLog>

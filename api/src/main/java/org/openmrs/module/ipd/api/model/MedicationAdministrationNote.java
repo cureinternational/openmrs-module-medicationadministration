@@ -68,6 +68,23 @@ public class MedicationAdministrationNote extends BaseOpenmrsData {
 	private String amendedReason;
 
 	/**
+	 * FHIR:time
+	 * Time when the amendment was made
+	 */
+	@Column(name = "amended_time")
+	private Date amendedTime;
+
+
+	/**
+	 * Provider who made the amendment
+	 */
+	@OneToOne
+	@JoinColumn(
+			name = "amended_by"
+    )
+	private Provider amendedBy;
+
+	/**
 	 * Provider who approved this amendment
 	 */
 	@OneToOne(optional = true)
@@ -192,4 +209,16 @@ public class MedicationAdministrationNote extends BaseOpenmrsData {
 		this.approvalNotes = approvalNotes;
 	}
 
+	public Date getAmendedTime() {
+		return amendedTime;
+	}
+	public void setAmendedTime(Date amendedTime) {
+		this.amendedTime = amendedTime;
+	}
+	public Provider getAmendedBy() {
+		return amendedBy;
+	}
+	public void setAmendedBy(Provider amendedBy) {
+		this.amendedBy = amendedBy;
+	}
 }
