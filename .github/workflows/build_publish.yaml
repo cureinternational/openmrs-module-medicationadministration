@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Configure Maven Settings for GitHub Packages
+      - name: Configure Maven settings for GitHub Packages
         run: |
           mkdir -p ~/.m2
           cat > ~/.m2/settings.xml <<EOF
@@ -34,13 +34,14 @@ jobs:
               <server>
                 <id>github</id>
                 <username>${{ github.actor }}</username>
-                <password>${{ secrets.GH_PAT }}</password>
+                <password>${{ secrets.CURE_EMR_ORG_ACCESS_TOKEN }}</password>
               </server>
             </servers>
           </settings>
           EOF
+        
       - name: Build and deploy with Maven
-        run: ./mvnw --no-transfer-progress clean -U package -DskipTests
+        run: ./mvnw --no-transfer-progress clean -U deploy -DskipTests
         
       - name: Delete Existing Release and Tag
         env:
