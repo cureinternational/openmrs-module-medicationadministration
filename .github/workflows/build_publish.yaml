@@ -39,7 +39,7 @@ jobs:
             </servers>
           </settings>
           EOF
-        
+
       - name: Build and deploy with Maven
         run: ./mvnw --no-transfer-progress clean -U deploy -DskipTests
         
@@ -63,6 +63,8 @@ jobs:
 
           # Attempt to delete the tag on the remote repository
           git push --delete origin $tag_name || echo "Tag $tag_name not found on remote."
+      - name: List files in OMOD target
+        run: ls -l omod/target
       - name: Create GitHub release
         id: create_release
         uses: actions/create-release@v1
