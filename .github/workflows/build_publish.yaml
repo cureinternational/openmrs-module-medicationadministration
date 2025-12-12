@@ -63,8 +63,6 @@ jobs:
 
           # Attempt to delete the tag on the remote repository
           git push --delete origin $tag_name || echo "Tag $tag_name not found on remote."
-      - name: List files in OMOD target
-        run: ls -l omod/target
       - name: Create GitHub release
         id: create_release
         uses: actions/create-release@v1
@@ -82,6 +80,6 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: omod/target/medication-administration-2.0.0-SNAPSHOT.omod
-            asset_name: medication-administration-2.0.0-SNAPSHOT.omod
+            asset_path: omod/target/medication-administration-2.0.0.ipd-SNAPSHOT.omod
+            asset_name: medication-administration-2.0.0.ipd-SNAPSHOT.omod
             asset_content_type: application/octet-stream
