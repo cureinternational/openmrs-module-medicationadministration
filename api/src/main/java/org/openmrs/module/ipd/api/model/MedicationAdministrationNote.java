@@ -67,8 +67,9 @@ public class MedicationAdministrationNote extends BaseOpenmrsData {
 	 * Reason for amending the note.
 	 * Null if this is the first note (not an amendment).
 	 */
-	@Column(name = "amendment_reason", length=65535)
-	private String amendmentReason;
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "status_reason_concept_id")
+	private Concept statusReason;
 
 	public MedicationAdministrationNote() {
 	}
@@ -129,12 +130,12 @@ public class MedicationAdministrationNote extends BaseOpenmrsData {
 		this.previousNote = previousNote;
 	}
 
-	public String getAmendmentReason() {
-		return amendmentReason;
+	public Concept getStatusReason() {
+		return statusReason;
 	}
 
-	public void setAmendmentReason(String amendmentReason) {
-		this.amendmentReason = amendmentReason;
+	public void setStatusReason(Concept statusReason) {
+		this.statusReason = statusReason;
 	}
 
 	/**
